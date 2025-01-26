@@ -1,102 +1,145 @@
-### Step 3: Run and debug
+## Exercise 3: Prompt templates
 
-With everything in place, we are now ready to test our custom engine agent in Microsoft Teams for the first time.
+Prompts play a crucial role in communicating and directing the behavior of language models.
 
-First, we need to start a debug session to start our local web API that contains the agent logic.
+Prompts are stored in the Prompts folder. A prompt is defined as a subfolder that contains two files:
 
-Continue in Visual Studio:
+ - **config.json**: The prompt configuration. This enables you to control parameters such as temperature, max tokens etc. that are passed to the language model.
+ - **skprompt.txt**: The prompt text template. This text determines the behaviour of the agent.
 
-1. To start a debug session, press <kbd>F5</kbd> on your keyboard, or select the **Start** button in the toolbar. A browser window is launched and navigates to Microsoft Teams.
-1. In the browser, sign in to Microsoft 365 using your Microsoft 365 account details.
-    - **Username: +++@lab.CloudPortalCredential(User1).Username+++**
-    - **Password: +++@lab.CloudPortalCredential(User1).Password+++**
+Here, you'll update the default prompt to change the agents behaviour.
 
-> [!IMPORTANT]
-> The first time you debug Teams the app install dialog will not appear, instead a Welcome to Teams dialog is shown instead. To install the app for the first time, you will need to steop and create a new debug session.
+### Step 1: Update prompt template
 
-1. Close the browser to stop the debug session.
-1. To start a debug session, press <kbd>F5</kbd> on your keyboard, or select the **Start** button in the toolbar. A browser window is launched and navigates to Microsoft Teams.
-1. Wait for Microsoft Teams to load and for the App install dialog to appear.
+Continuing in Visual Studio:
 
-Previously, Teams Toolkit registered the app in the Teams Developer Portal. To use the app we need to install it for the current user. Teams Toolkit launches the browser using a special URL which enables developers to install the app before they test it.
+1. In the **Custom.Engine.Agent** project, expand the **Prompt** folder.
+1. In the **Chat** folder, open the **skprompt.txt** file. 
+1. Update the contents of the file:
 
-> [!NOTE]
-> If any changes are made to the app manifest file. Developers will need to run the Prepare Teams App dependencies process again and install the app for the changes to be reflected in Microsoft Teams.
+    ```
+    You are a career specialist named "Career Genie" that helps Human Resources team for writing job posts.
+    You are friendly and professional.
+    You always greet users with excitement and introduce yourself first.
+    You like using emojis where appropriate.
+    ```
+
+1. Save changes.
+
+### Step 2: Test the new prompt
+
+Now let's test our change.
+
+1. To start a debug session, press <kbd>F5</kbd> on your keyboard, or select the **Start** button in the toolbar.
 
 Continuing in the web browser:
 
-1. In the App install dialog, select **Add**.
-1. In the App install confirmation dialog, select **Open**. The custom engine agent is displayed in Microsoft Teams.
+1. In the app dialog, select **Open** to open the agent in Microsoft Teams.
+1. In the message box, enter +++Hi+++ and send the message. Wait for the response. Notice the change in the response.
+1. In the message box, enter +++Can you help me write a job post for a Senior Developer role?+++ and send the message. Wait for the response.
 
-Now let's test that everything is working as expected.
+Continue the conversation by sending more messages.
+
+- +++What would be the list of required skills for a Project Manager role?+++
+- +++Can you share a job template?+++
+
+Close the browser to stop the debug session.
+
+## Exercise 3: Suggested prompts
+
+Suggested prompts are shown in the user interface and a good way for users to discover how the agent can help them through examples.
+
+Here, you'll define two suggested prompts.
+
+### Step 1: Update app manifest
+
+Continuing in Visual Studio:
+
+1. In the **TeamsApp** project, expand the **appPackage** folder.
+1. In the **appPackage** folder, open the **manifest.json** file.
+1. In the **bots** array property, expand the first object with a **commandLists** array property.
+
+    ```
+    "commandLists": [
+        {
+            "scopes": [
+                "personal"
+            ],
+            "commands": [
+                {
+                    "title": "Write a job post for <role>",
+                    "description": "Generate a job posting for a specific role"
+                },
+                {
+                    "title": "Skill required for <role>",
+                    "description": "Identify skills required for a specific role"
+                }
+            ]
+        }
+    ]
+    ```
+1. Save your changes.
+
+The **bots** array property should look like:
+
+```
+"bots": [
+  {
+    "botId": "${{BOT_ID}}",
+    "scopes": [
+      "personal"
+    ],
+    "supportsFiles": false,
+    "isNotificationOnly": false,
+    "commandLists": [
+      {
+        "scopes": [
+          "personal"
+        ],
+        "commands": [
+          {
+            "title": "Write a job post for <role>",
+            "description": "Generate a job posting for a specific role"
+          },
+          {
+            "title": "Skill required for <role>",
+            "description": "Identify skills required for a specific role"
+          }
+        ]
+      }
+    ]
+  }
+],
+```
+
+### Step 2: Test suggested prompts
+
+As you've made a change to the app manifest file, we need to Run the Prepare Teams App Dependencies process to update the app registration in the Teams Developer Portal before starting a debug session to test it.
+
+Continuing in Visual Studio:
+
+1. Right-click **TeamsApp** project, expand the **Teams Toolkit** menu and select **Prepare Teams App Dependencies**.
+1. Confirm the prompts and wait till the process completes.
+
+Now let's test the change.
+
+1. Start a debug session, press <kbd>F5</kbd> on your keyboard, or select the **Start** button in the toolbar.
 
 Continuing in the web browser:
 
-1. Enter +++Hello, world!+++ in the message box and press <kbd>Enter</kbd> to send the message to the agent. A typing indicator appears whilst waiting for the agent to respond.
-1. Notice the natural language response from the agent and a label **AI generated** is shown in the agent response.
-1. Continue a conversation with the agent.
-1. Go back to Visual Studio. Notice that in the Debug pane, Teams AI library is tracking the full conversation and displays appended conversation history in the output.
-1. Close the browser to stop the debug session.
+1. In the app dialog, select **Open** to open the agent in Microsoft Teams.
+1. Above the message box, select **View prompts** to open the prompt suggestions flyout.
+1. In the **Prompts** dialog, select one of the prompts. The text is added into the message box.
+1. In the message box, replace <b>&lt;role&gt;</b> with a job title, for example, +++Senior Software Engineer+++, and send the message.
 
-### Step 4: Examine agent configuration
+The prompt suggestions can also be seen when the user opens the agent for the first time.
 
-The functionality of our agent is implemented using Teams AI library. Let's take a look at how our agent is configured.
+Continuing in the web browser:
 
-In Visual Studio:
+1. In the Microsoft Teams side bar, go to **Chat**.
+1. Find the chat with the name **Custom engine agent** in the list and select the **...** menu.
+1. Select **Delete** and confirm the action.
+1. In the Microsoft Teams side bar, select **...** to open the apps flyout.
+1. Select **Custom engine agent** to start a new chat. The two suggested prompts are shown in the user interface.
 
-1. In the **Custom.Engine.Agent** project, open **Program.cs** file.
-1. Examine the contents of the file.
-
-The file sets up the web application and integrates it with Microsoft Bot Framework and services.
-
-- **WebApplicationBuilder**: Initializes web application with controllers and HTTP client services.
-- **Configuration**: Retrieve configuration options from the apps configration and sets up Bot Framework authentication.
-- **Dependency injection**: Registers BotFrameworkAuthentication and TeamsAdapter services. Configures Azure Blob Storage for persisting agent state and sets up an Azure OpenAI model service.
-- **Agent setup**: Registers the agent as a transient service. The agent logic is implemented using Teams AI library.
-
-Let's take a look at the agent setup.
-
-```
-builder.Services.AddTransient<IBot>(sp =>
-{
-    // Create loggers
-    ILoggerFactory loggerFactory = sp.GetService<ILoggerFactory>();
-
-    // Create Prompt Manager
-    PromptManager prompts = new(new()
-    {
-        PromptFolder = "./Prompts"
-    });
-
-    // Create ActionPlanner
-    ActionPlanner<TurnState> planner = new(
-        options: new(
-            model: sp.GetService<OpenAIModel>(),
-            prompts: prompts,
-            defaultPrompt: async (context, state, planner) =>
-            {
-                PromptTemplate template = prompts.GetPrompt("Chat");
-                return await Task.FromResult(template);
-            }
-        )
-        { LogRepairs = true },
-        loggerFactory: loggerFactory
-    );
-
-    Application<TurnState> app = new ApplicationBuilder<TurnState>()
-        .WithAIOptions(new(planner))
-        .WithStorage(sp.GetService<IStorage>())
-        .Build();
-
-    return app;
-});
-```
-
-The key elements of the agent setup are:
-
-- **ILoggerFactory**: Used for logging messages to the output pane for debugging.
-- **PromptManager**: Determines the location of prompt templates.
-- **ActionPlanner**: Determines which model and prompt should be used when handling a user message. By default, the planner uses a prompt template named **Chat**.
-- **ApplicationBuilder**: Creates an object which represents a Bot that can handle incoming activities.
-
-The agent is added as a transient service which means that everytime a message is recieved from the Bot Framework, our agent code will be executed.
+Close the browser to stop the debug session.

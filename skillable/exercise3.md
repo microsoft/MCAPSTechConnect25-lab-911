@@ -1,145 +1,95 @@
-## Exercise 3: Prompt templates
+## Exercise 4: Message handlers
 
-Prompts play a crucial role in communicating and directing the behavior of language models.
+Suppose you want to run some logic when a message that contains a specific phrase or keyword is sent to the agent, a message handler allows you to do that.
 
-Prompts are stored in the Prompts folder. A prompt is defined as a subfolder that contains two files:
+Up to this point, every time you send and recieve a message the contents of the messages are saved in the agent state. During development the agent state is stored in an emulated Azure Storage account hosted on your machine. You can inspect the agent state using Azure Storage Explorer.
 
- - **config.json**: The prompt configuration. This enables you to control parameters such as temperature, max tokens etc. that are passed to the language model.
- - **skprompt.txt**: The prompt text template. This text determines the behaviour of the agent.
+> [!NOTE]
+> Message handlers are processed before the ActionPlanner and so take priority for handling the response.
+ 
+Here, you'll create a message handler that will clear the conversation history stored in the agent state when a message that contains **/new** is sent, and respond with a fixed message.
 
-Here, you'll update the default prompt to change the agents behaviour.
-
-### Step 1: Update prompt template
-
-Continuing in Visual Studio:
-
-1. In the **Custom.Engine.Agent** project, expand the **Prompt** folder.
-1. In the **Chat** folder, open the **skprompt.txt** file. 
-1. Update the contents of the file:
-
-    ```
-    You are a career specialist named "Career Genie" that helps Human Resources team for writing job posts.
-    You are friendly and professional.
-    You always greet users with excitement and introduce yourself first.
-    You like using emojis where appropriate.
-    ```
-
-1. Save changes.
-
-### Step 2: Test the new prompt
-
-Now let's test our change.
-
-1. To start a debug session, press <kbd>F5</kbd> on your keyboard, or select the **Start** button in the toolbar.
-
-Continuing in the web browser:
-
-1. In the app dialog, select **Open** to open the agent in Microsoft Teams.
-1. In the message box, enter +++Hi+++ and send the message. Wait for the response. Notice the change in the response.
-1. In the message box, enter +++Can you help me write a job post for a Senior Developer role?+++ and send the message. Wait for the response.
-
-Continue the conversation by sending more messages.
-
-- +++What would be the list of required skills for a Project Manager role?+++
-- +++Can you share a job template?+++
-
-Close the browser to stop the debug session.
-
-## Exercise 3: Suggested prompts
-
-Suggested prompts are shown in the user interface and a good way for users to discover how the agent can help them through examples.
-
-Here, you'll define two suggested prompts.
-
-### Step 1: Update app manifest
+## Step 1: Create message handler
 
 Continuing in Visual Studio:
 
-1. In the **TeamsApp** project, expand the **appPackage** folder.
-1. In the **appPackage** folder, open the **manifest.json** file.
-1. In the **bots** array property, expand the first object with a **commandLists** array property.
+1. In the **Custom.Engine.Agent** project, create a file called **MessageHandlers.cs** with the following contents:
 
     ```
-    "commandLists": [
+    using Microsoft.Bot.Builder;
+    using Microsoft.Teams.AI.State;
+
+    namespace Custom.Engine.Agent;
+
+    internal class MessageHandlers
+    {
+        internal static async Task NewChat(ITurnContext turnContext, TurnState turnState, CancellationToken cancellationToken)
         {
-            "scopes": [
-                "personal"
-            ],
-            "commands": [
-                {
-                    "title": "Write a job post for <role>",
-                    "description": "Generate a job posting for a specific role"
-                },
-                {
-                    "title": "Skill required for <role>",
-                    "description": "Identify skills required for a specific role"
-                }
-            ]
+            turnState.DeleteConversationState();
+            await turnContext.SendActivityAsync("Conversation history has been cleared and a new conversation has been started.", cancellationToken: cancellationToken);
         }
-    ]
+    }
     ```
+
 1. Save your changes.
 
-The **bots** array property should look like:
+## Step 2: Register message handler
+
+1. Open **Program.cs**, in the agent code, add the following code after the **app** declaration :
+
+    ```
+    app.OnMessage("/new", MessageHandlers.NewChat);
+    ```
+
+1. Save your changes.
+
+The agent code should look like:
 
 ```
-"bots": [
-  {
-    "botId": "${{BOT_ID}}",
-    "scopes": [
-      "personal"
-    ],
-    "supportsFiles": false,
-    "isNotificationOnly": false,
-    "commandLists": [
-      {
-        "scopes": [
-          "personal"
-        ],
-        "commands": [
-          {
-            "title": "Write a job post for <role>",
-            "description": "Generate a job posting for a specific role"
-          },
-          {
-            "title": "Skill required for <role>",
-            "description": "Identify skills required for a specific role"
-          }
-        ]
-      }
-    ]
-  }
-],
+builder.Services.AddTransient<IBot>(sp =>
+{
+    // Create loggers
+    ILoggerFactory loggerFactory = sp.GetService<ILoggerFactory>();
+
+    // Create Prompt Manager
+    PromptManager prompts = new(new()
+    {
+        PromptFolder = "./Prompts"
+    });
+
+    // Create ActionPlanner
+    ActionPlanner<TurnState> planner = new(
+        options: new(
+            model: sp.GetService<OpenAIModel>(),
+            prompts: prompts,
+            defaultPrompt: async (context, state, planner) =>
+            {
+                PromptTemplate template = prompts.GetPrompt("Chat");
+                return await Task.FromResult(template);
+            }
+        )
+        { LogRepairs = true },
+        loggerFactory: loggerFactory
+    );
+
+    Application<TurnState> app = new ApplicationBuilder<TurnState>()
+        .WithAIOptions(new(planner))
+        .WithStorage(sp.GetService<IStorage>())
+        .Build();
+
+    app.OnMessage("/new", MessageHandlers.NewChat);
+
+    return app;
+});
 ```
 
-### Step 2: Test suggested prompts
-
-As you've made a change to the app manifest file, we need to Run the Prepare Teams App Dependencies process to update the app registration in the Teams Developer Portal before starting a debug session to test it.
-
-Continuing in Visual Studio:
-
-1. Right-click **TeamsApp** project, expand the **Teams Toolkit** menu and select **Prepare Teams App Dependencies**.
-1. Confirm the prompts and wait till the process completes.
+## Step 3: Run and debug
 
 Now let's test the change.
 
-1. Start a debug session, press <kbd>F5</kbd> on your keyboard, or select the **Start** button in the toolbar.
+> [!TIP]
+> Your debug session from the previous section should still be running, if not start a new debug session.
 
-Continuing in the web browser:
-
-1. In the app dialog, select **Open** to open the agent in Microsoft Teams.
-1. Above the message box, select **View prompts** to open the prompt suggestions flyout.
-1. In the **Prompts** dialog, select one of the prompts. The text is added into the message box.
-1. In the message box, replace <b>&lt;role&gt;</b> with a job title, for example, +++Senior Software Engineer+++, and send the message.
-
-The prompt suggestions can also be seen when the user opens the agent for the first time.
-
-Continuing in the web browser:
-
-1. In the Microsoft Teams side bar, go to **Chat**.
-1. Find the chat with the name **Custom engine agent** in the list and select the **...** menu.
-1. Select **Delete** and confirm the action.
-1. In the Microsoft Teams side bar, select **...** to open the apps flyout.
-1. Select **Custom engine agent** to start a new chat. The two suggested prompts are shown in the user interface.
+- In the message box, enter **/new** and send the message. Notice that the message in the response is not from the language model but from the message handler.
 
 Close the browser to stop the debug session.
