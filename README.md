@@ -1,6 +1,6 @@
-# Lab 446 - Part 2:2 Custom Engine Agents-Build Agents for Microsoft 365 Copilot
+# Lab 911 - Custom Engine Agents-Build Agents for Microsoft 365 Copilot
 
-This repository contains source code and instructions used in the lab delivered at Microsoft Ignite 2024 in Chicago.
+This repository contains source code and instructions used in the lab delivered at Microsoft Tech Connect 2025 in Seattle.
 
 ## Contributing
 
