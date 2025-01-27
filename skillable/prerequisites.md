@@ -141,6 +141,7 @@ The next step is to run a PowerShell script, which is going to deploy on your Az
     ```powershell
     .\DeployAzureOpenAI.ps1 -resourceSuffix XXXXXX
     ```
+    ![Run script](media/prereq/1.run-script.png)
 
 7. The script will ask you to log in to your Azure subscription. If you're doing this lab at MCAPS Tech Connect, choose **Work or school account**, then use the following credentials when asked:
 
@@ -166,7 +167,7 @@ The next step is to run a PowerShell script, which is going to deploy on your Az
 
 1. Open file ```TeamsApp\env\.env.local.user```
 2. The SECRET_BOT_PASSWORD will be set.
-3. Copy variable names from ```TeamsApp\env\.env.local.user.sample```
+3. Copy the variable names from ```TeamsApp\env\.env.local.user.sample```
 4. Complete remaining variables with the values received in the above step. 
 When complete, the file should look something like:
 ```
