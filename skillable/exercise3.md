@@ -1,8 +1,8 @@
-## Exercise 4: Message handlers
+## Exercise 3: Message handlers
 
 Suppose you want to run some logic when a message that contains a specific phrase or keyword is sent to the agent, a message handler allows you to do that.
 
-Up to this point, every time you send and recieve a message the contents of the messages are saved in the agent state. During development the agent state is stored in an emulated Azure Storage account hosted on your machine. You can inspect the agent state using Azure Storage Explorer.
+Up to this point, every time you send and receive a message the contents of the messages are saved in the agent state. During development the agent state is stored in an emulated Azure Storage account hosted on your machine. You can inspect the agent state using Azure Storage Explorer.
 
 > [!NOTE]
 > Message handlers are processed before the ActionPlanner and so take priority for handling the response.
@@ -13,7 +13,7 @@ Here, you'll create a message handler that will clear the conversation history s
 
 Continuing in Visual Studio:
 
-1. In the **Custom.Engine.Agent** project, create a file called **MessageHandlers.cs** with the following contents:
+1. In the **Custom.Engine.Agent** project, in the project root, create a file called **MessageHandlers.cs** with the following contents:
 
     ```
     using Microsoft.Bot.Builder;

@@ -1,4 +1,4 @@
-## Exercise 3: Prompt templates
+## Exercise 2: Prompt templates
 
 Prompts play a crucial role in communicating and directing the behavior of language models.
 
@@ -13,7 +13,7 @@ Here, you'll update the default prompt to change the agents behaviour.
 
 Continuing in Visual Studio:
 
-1. In the **Custom.Engine.Agent** project, expand the **Prompt** folder.
+1. In the **Custom.Engine.Agent** project, expand the **Prompts** folder.
 1. In the **Chat** folder, open the **skprompt.txt** file. 
 1. Update the contents of the file:
 

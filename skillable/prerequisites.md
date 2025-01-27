@@ -89,10 +89,10 @@ Continue in Visual Studio:
 
 The file contains a single stage called **Provision** which contains several tasks.
 
-1. **teamsApp/create**: Registers an app in Teams Developer Portal and writes the app ID to **env\.env.local**.
-1. **aadApp/create**: Registers an app in Microsoft Entra and writes several values to **env\.env.local**.
+1. **teamsApp/create**: Registers an app in Teams Developer Portal and writes the app ID to **env\\.env.local**.
+1. **aadApp/create**: Registers an app in Microsoft Entra and writes several values to **env\\.env.local**.
 1. **aadApp/update**: Applies an app manifest to the Microsoft Entra app registration.
-1. **arm/deploy**: Provisions the Azure Bot Service using Bicep. It writes several values back to **env\.env.local**.
+1. **arm/deploy**: Provisions the Azure Bot Service using Bicep. It writes several values back to **env\\.env.local**.
 1. **file/createOrUpdateJsonFile**: Updates **appsettings.development.json** file with environment variables which can be used by code at runtime.
 1. **teamsApp/validateManifest**: Validates the app manifest file.
 1. **teamsApp/zipAppPackage**: Creates the Teams app package.
@@ -115,9 +115,11 @@ This will be a three step process where you will
 1. Wait for the process to complete, this can take a 1-3 minutes. Teams Toolkit will output its progress in the Output pane.
 1. In the **Info** prompt, select **View provisioned resources** to open a browser.
 
-Take a minute to examine the Azure Bot Service resource in the Azure Portal.
+<!-- Take a minute to examine the Azure Bot Service resource in the Azure Portal. -->
 
-### Step 4.3: Create AzureOpenAI resource and deploy gpt-4o-mini LLM
+Note: This step will not complete and step with an error - this is expected. The next two steps will finish the provisioning.
+
+### Step 4.3: Create AzureOpenAI resource and deploy the gpt-4o-mini LLM
 
 The next step is to run a PowerShell script, which is going to deploy on your Azure subscription the two resources which are needed to run the lab:
 
@@ -186,15 +188,3 @@ SECRET_BOT_PASSWORD=crypto_bc219937xxx
 8. In the **Info** prompt, select **View provisioned resources** to open a browser.
 
 Note the created Azure Bot and Azure OpenAI created resources.
-
-
-
-
-
-
-
-
-
-
-
-

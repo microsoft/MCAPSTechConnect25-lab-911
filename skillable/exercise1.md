@@ -1,4 +1,6 @@
-### Step 3: Run and debug
+## Exercise 1: Running the Custom Engine Agent
+
+### Step 1: Run and debug
 
 With everything in place, we are now ready to test our custom engine agent in Microsoft Teams for the first time.
 
@@ -38,7 +40,7 @@ Continuing in the web browser:
 1. Go back to Visual Studio. Notice that in the Debug pane, Teams AI library is tracking the full conversation and displays appended conversation history in the output.
 1. Close the browser to stop the debug session.
 
-### Step 4: Examine agent configuration
+### Step 2: Examine agent configuration
 
 The functionality of our agent is implemented using Teams AI library. Let's take a look at how our agent is configured.
 
