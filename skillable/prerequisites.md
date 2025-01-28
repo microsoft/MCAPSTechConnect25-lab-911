@@ -163,7 +163,7 @@ The next step is to run a PowerShell script, which is going to deploy on your Az
 
 11. Keep the terminal open. You will need these credentials later in the lab. In case you close the window by mistake, a backup copy of the credentials has been saved on your desktop in a text file named *Credentials.txt*.
 
-### Step 4.3: Update .env.local.user with AzureOpenAI environment variables
+### Step 4.4: Update .env.local.user with AzureOpenAI environment variables
 
 1. Open file ```TeamsApp\env\.env.local.user```
 2. The SECRET_BOT_PASSWORD will be set.
@@ -176,7 +176,7 @@ AZURE_OPENAI_ENDPOINT=https://bot-18xxxx-local.openai.azure.com/
 AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4o-mini
 SECRET_BOT_PASSWORD=crypto_bc219937xxx
 ```
-### Step 4.3: Complete the provisioning 
+### Step 4.5: Complete the provisioning 
 
 1. Repeat **Step 4.2: Use Teams Toolkit to execute the tasks in the workflow file** above to complete the configuration of the Bot and AzureOpenAI resources. Here are the steps for convenience:
 
