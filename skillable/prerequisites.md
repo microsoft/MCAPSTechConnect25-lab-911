@@ -117,7 +117,7 @@ This will be a three step process where you will
 
 <!-- Take a minute to examine the Azure Bot Service resource in the Azure Portal. -->
 
-Note: This step will not complete and step with an error - this is expected. The next two steps will finish the provisioning.
+Note: This step will not complete and stop with an error - this is expected. The next two steps will finish the provisioning.
 
 ### Step 4.3: Create AzureOpenAI resource and deploy the gpt-4o-mini LLM
 
