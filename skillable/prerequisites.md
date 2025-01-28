@@ -101,7 +101,9 @@ The file contains a single stage called **Provision** which contains several tas
 
 ### Step 4.2: Use Teams Toolkit to execute the tasks in the workflow file
 
-This will be a three step process where you will 
+This will be a three step process where you will 1) provistion the Azure Bot resource 2) deploy the Azure OpenAI LLM 3) provision the agent with M365.
+
+> [!Alert] NOTE: This first step will not complete and stop with an error - this is expected. You will use the output from this failed step to complete following two provisioning steps.
 
 1. Right-click **TeamsApp** project.
 1. Expand the **Teams Toolkit** menu and select **Prepare Teams App Dependencies**.
