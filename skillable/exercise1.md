@@ -8,13 +8,15 @@ First, we need to start a debug session to start our local web API that contains
 
 Continue in Visual Studio:
 
-1. To start a debug session, press <kbd>F5</kbd> on your keyboard, or select the **Start** button in the toolbar. A browser window is launched and navigates to Microsoft Teams.
-1. In the browser, sign in to Microsoft 365 using your Microsoft 365 account details.
+1. Click on the small arrow near the **Start Project** button in the toolbar and select **Configure Startup Project**.
+2. Pick **Multiple startup projects**, then click **Ok**. This is required because the solution requires to launch two projects at the same time: one is the actual custom engine agent, the other one takes care of the Teams app deployment.
+3. To start a debug session, press <kbd>F5</kbd> on your keyboard, or select the **Start** button in the toolbar. A browser window is launched and navigates to Microsoft Teams.
+4. In the browser, sign in to Microsoft 365 using your Microsoft 365 account details.
     - **Username: +++@lab.CloudPortalCredential(User1).Username+++**
     - **Password: +++@lab.CloudPortalCredential(User1).Password+++**
 
 > [!IMPORTANT]
-> The first time you debug Teams the app install dialog will not appear, instead a Welcome to Teams dialog is shown instead. To install the app for the first time, you will need to steop and create a new debug session.
+> The first time you debug Teams the app install dialog will not appear, instead a Welcome to Teams dialog is shown instead. To install the app for the first time, you will need to stop and create a new debug session.
 
 1. Close the browser to stop the debug session.
 1. To start a debug session, press <kbd>F5</kbd> on your keyboard, or select the **Start** button in the toolbar. A browser window is launched and navigates to Microsoft Teams.

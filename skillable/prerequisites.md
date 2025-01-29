@@ -131,7 +131,6 @@ The next step is to run a PowerShell script, which is going to deploy on your Az
 
 3. Open a Terminal session in Visual Studio
 4. Change to directory .\LAB-911-BEGIN\scripts
-4. Right click on an empty space in File Explorer and choose **Open in Terminal**.
 5. Type the following command and press Enter to enable the execution of the script:
 
     ```powershell
@@ -145,25 +144,27 @@ The next step is to run a PowerShell script, which is going to deploy on your Az
     ```
     ![Run script](media/prereq/1.run-script.png)
 
-7. The script will ask you to log in to your Azure subscription. If you're doing this lab at MCAPS Tech Connect, choose **Work or school account**, then use the following credentials when asked:
+7. The script will show a security warning message. Type +++R+++ and press Enter to run the script.
+
+8. The script will ask you to log in to your Azure subscription. If you're doing this lab at MCAPS Tech Connect, choose **Work or school account**, then use the following credentials when asked:
 
     - Username: +++@lab.CloudPortalCredential(User1).Username+++
     - Password: +++@lab.CloudPortalCredential(User1).Password+++
   
 
-8. Windows will ask you if you want to stay signed in all your apps. Click on the **No, sign in to this app only** link highlighted in the image below:
+9. Windows will ask you if you want to stay signed in all your apps. Click on the **No, sign in to this app only** link highlighted in the image below:
 
     ![Choose to sign in to this app only when asked](media/prereq/2.sign-app-only.png)
 
-9. You will be asked to choose a subscription. Type `1` to select the only available one and press Enter.
+10. You will be asked to choose a subscription. Type `1` to select the only available one and press Enter.
 
     ![The Azure subscription to select](media/prereq/3.pre-select-tenant.png)
 
-10. The script will take a few minutes to complete. Once the execution is completed, you will see a report like the following one:
+11. The script will take a few minutes to complete. Once the execution is completed, you will see a report like the following one:
 
     ![The output of the PowerShell script](media/prereq/4.script-output.png)
 
-11. Keep the terminal open. You will need these credentials later in the lab. In case you close the window by mistake, a backup copy of the credentials has been saved on your desktop in a text file named *Credentials.txt*.
+12. Keep the terminal open. You will need these credentials later in the lab. In case you close the window by mistake, a backup copy of the credentials has been saved on your desktop in a text file named *Credentials.txt*.
 
 ### Step 4.4: Update .env.local.user with AzureOpenAI environment variables
 
