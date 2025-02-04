@@ -35,7 +35,7 @@ Continuing in Visual Studio:
 
 ## Step 2: Register message handler
 
-1. Open **Program.cs**, in the agent code, add the following code after the **app** declaration :
+1. Open **Program.cs**, find the agent code **builder.Services.AddTransient<IBot>(sp => ...)**, add the following code after the **app** declaration inside it:
 
     ```
     app.OnMessage("/new", MessageHandlers.NewChat);
@@ -93,3 +93,8 @@ Now let's test the change.
 - In the message box, enter **/new** and send the message. Notice that the message in the response is not from the language model but from the message handler.
 
 Close the browser to stop the debug session.
+
+## Congratulations!
+
+
+Great job! You have now completed the lab and you're ready to start building custom agents in pro code to tackle your business processes!
