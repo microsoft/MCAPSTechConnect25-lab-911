@@ -57,7 +57,7 @@ Continuing in Visual Studio:
 
 1. In the **TeamsApp** project, expand the **appPackage** folder.
 1. In the **appPackage** folder, open the **manifest.json** file.
-1. In the **bots** array property, expand the first object with a **commandLists** array property.
+1. In the **bots** array property, expand the first object with a **commandLists** array property after **"isNotificationOnly"**.
 
     ```
     "commandLists": [
