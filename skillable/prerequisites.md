@@ -116,12 +116,7 @@ This will be a three step process where you will 1) provistion the Azure Bot res
     1. **Region**: Expand the dropdown and select **West US** in the list
     1. Select **Provision**
 1. In the warning prompt, select **Provision**.
-1. Wait for the process to complete, this can take a 1-3 minutes. Teams Toolkit will output its progress in the Output pane.
-1. In the **Info** prompt, select **View provisioned resources** to open a browser.
-
-<!-- Take a minute to examine the Azure Bot Service resource in the Azure Portal. -->
-
-Note: This step will not complete and stop with an error - this is expected. The next two steps will finish the provisioning.
+1. Wait for the process to finish with an error (this is expected), this can take a 1-3 minutes. Teams Toolkit will output its progress in the Output pane. In the next two steps you will finish the provisioning.
 
 ### Step 4.3: Create AzureOpenAI resource and deploy the gpt-4o-mini LLM
 
