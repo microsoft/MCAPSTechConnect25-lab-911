@@ -13,6 +13,6 @@
 
 Custom engine agents are chatbots for Microsoft Teams powered by generative AI, designed to provide sophisticated conversational experiences. Custom engine agents are built using the Teams AI library, which provides comprehensive AI functionalities, including managing prompts, actions, and model integration as well as extensive options for UI customization. This ensures that your chatbots leverage the full range of AI capabilities while delivering a seamless and engaging experience aligned with Microsoft platforms.
 
-See the  [skillable](.\skillable) folder for Prerequisites and Exercises
+See the [skillable](.\skillable) folder for Prerequisites and Exercises
 
 See [Lab 446 - Part 2:2 Custom Engine Agents-Build Agents for Microsoft 365 Copilot](https://github.com/microsoft/ignite24-lab-446) for a version of this lab that includes the Custom Engine Agent using RAG, Feedback, customized agent responses and Document Sensitivity Labels.

@@ -2,6 +2,15 @@
 
 This repository contains source code and instructions used in the lab delivered at Microsoft Tech Connect 2025 in Seattle.
 
+To perform the lab, follow this sequence:
+
+- [Prerequisites](/skillable/prerequisites.md)
+- [Exercise 1: Running the Custom Engine Agent](/skillable/exercise1.md)
+- [Exercise 2: Prompt templates](/skillable/exercise2.md)
+- [Exercise 3: Message handlers](/skillable/exercise3.md)
+
+See [Lab 446 - Part 2:2 Custom Engine Agents-Build Agents for Microsoft 365 Copilot](https://github.com/microsoft/ignite24-lab-446) for a version of this lab that includes the Custom Engine Agent using RAG, Feedback, customized agent responses and Document Sensitivity Labels.
+
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
